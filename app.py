@@ -3,7 +3,6 @@ from src.models.piece import piece
 from src.models.pawn import pawn
 from src.models.king import king
 from src.models.queen import queen
-
 # 3.10.6 - patrick
 # 3.7.0 - austin
 
@@ -33,6 +32,9 @@ def hello_world():
 def gimme_dat_piece(piece_name):
     piece_class = PIECE_NAME_MAP[piece_name]
     my_piece = piece_class(starting_point='fuck you')
+    
+    # shitty debugging for moving in a direction for a piece - parameterize this later
+    print(list(my_piece.move_x_spaces_in_direction(x=2)))
     name = my_piece.starting_point
     moveset = my_piece.valid_moveset
     new = Template("<p>Hello, World! $name - my moves are $moveset</p>")
