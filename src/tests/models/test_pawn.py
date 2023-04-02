@@ -4,7 +4,7 @@ from src.models.pawn import pawn
 from src.models.constants import MOVES
 
 
-# @pytest.mark.black_team
+@pytest.mark.black_team
 def test_has_correct_valid_moveset():
     assert pawn(starting_point='fuck you').valid_moveset == [[-1, 0], [-2,0]]
 
@@ -14,7 +14,7 @@ def test_has_correct_valid_moveset_at_turn_2():
     assert my_pawn.valid_moveset == [[-1, 0]]
 
 
-# @pytest.mark.white_team
+@pytest.mark.white_team
 def test_has_correct_valid_moveset_white():
     my_pawn = pawn(team_name='white', starting_point='fuck you')
     assert my_pawn.valid_moveset == [[1, 0], [2, 0]]
