@@ -1,5 +1,11 @@
 from flask import Flask
 from src.models.piece import piece
+from src.models.pawn import pawn
+from src.models.king import king
+from src.models.queen import queen
+
+# 3.10.6 - patrick
+# 3.7.0 - austin
 
 from string import Template
 
@@ -7,7 +13,9 @@ from string import Template
 app = Flask(__name__)
 
 PIECE_NAME_MAP = {
-    'pawn': piece
+    'pawn': pawn,
+    'king': king,
+    'queen': queen
 }
 
 
@@ -24,7 +32,7 @@ def hello_world():
 @app.route("/pieces/<string:piece_name>")
 def gimme_dat_piece(piece_name):
     piece_class = PIECE_NAME_MAP[piece_name]
-    my_piece = piece_class(starting_point='fuck you', valid_moveset=[1,1])
+    my_piece = piece_class(starting_point='fuck you')
     name = my_piece.starting_point
     moveset = my_piece.valid_moveset
     new = Template("<p>Hello, World! $name - my moves are $moveset</p>")

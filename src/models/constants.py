@@ -1,0 +1,1 @@
+# TODO: make all the direction into constants and then multiply them by the number of moves they can do in that direction
