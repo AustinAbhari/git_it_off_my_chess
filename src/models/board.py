@@ -53,6 +53,9 @@ class board:
         self.grid[white_starting_row][king_starting_column] = "wK"
         self.grid[black_starting_row][king_starting_column] = "bB"
 
+        # once we get some hardware we need to update each square have an id and peice
+        # prolly should be its own class
+
     def next_turn(self):
         # change turn to white or black, prolly move this is a game class
         # catalog in move order
