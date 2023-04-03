@@ -1,6 +1,3 @@
-import numpy as np
-import src.models.pawn as pawn
-
 rows, cols = (8, 8)
 
 
