@@ -1,0 +1,14 @@
+<table style="border-collapse: collapse;
+              table-layout: fixed;
+              ">
+    {% for row in data %}
+        <tr>
+            {% for element in row %}
+                <td style="border: 2px black solid; 
+                          padding: 30px 30px;">
+                    <h2 style="margin: 0">{{element}}</h2>
+                <td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

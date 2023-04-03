@@ -1,13 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 from src.models.piece import piece
 from src.models.pawn import pawn
 from src.models.king import king
 from src.models.queen import queen
-# 3.10.6 - patrick
-# 3.7.0 - austin
-
+from src.models.board import board
 from string import Template
-
 
 app = Flask(__name__)
 
@@ -20,11 +17,11 @@ PIECE_NAME_MAP = {
 
 @app.route("/")
 def hello_world():
-    my_piece = piece(starting_point = 'fuck you', valid_moveset=[1,1]) 
+    my_piece = piece(starting_point='fuck you', valid_moveset=[1, 1])
     name = my_piece.starting_point
     moveset = my_piece.valid_moveset
     new = Template("<p>Hello, World! $name - my moves are $moveset</p>")
-    
+
     return new.substitute(name=name, moveset=moveset)
 
 
@@ -39,3 +36,10 @@ def gimme_dat_piece(piece_name):
     moveset = my_piece.valid_moveset
     new = Template("<p>Hello, World! $name - my moves are $moveset</p>")
     return new.substitute(name=name, moveset=moveset)
+
+
+@app.route("/board")
+def big_ol_chess_board():
+    b = board()
+    b.setup_board()
+    return render_template("grid.html", data=b.get_grid())
