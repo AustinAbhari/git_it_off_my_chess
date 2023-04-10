@@ -1,6 +1,6 @@
 import pytest
 import pdb
-from src.models.peices.pawn import pawn
+from src.models.pieces.pawn import pawn
 from src.helpers.constants import MOVES
 
 

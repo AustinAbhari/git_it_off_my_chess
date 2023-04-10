@@ -1,6 +1,6 @@
 import pytest
 import pdb
-from src.models.queen import queen
+from src.models.pieces.queen import queen
 from src.helpers.constants import MOVES
 
 
