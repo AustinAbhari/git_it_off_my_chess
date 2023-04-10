@@ -10,7 +10,17 @@ Active the virtual environment
  flask run # run flask
  ```
 
+```shell
+pip install -r requirements.txt
+```
+
  ## Using flask in the command line/shell
  ```shell
  flask shell
+ ```
+
+ ## Run tests with pytest
+
+ ```shell
+ pytest
  ```
