@@ -1,4 +1,4 @@
-from src.models.peices.piece import piece
+from src.models.pieces.piece import piece
 
 
 class bishop(piece):
