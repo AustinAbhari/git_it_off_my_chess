@@ -6,8 +6,9 @@ class piece:
         # so we can build a SimpleNamespace (dot notation dictionary, basically)
         # or a normal dictionary of the valid moveset - it will be easier to work with
         self.team_name = team_name
-        self.valid_moveset = self.convert_moveset_based_on_team(valid_moveset)
+        self.valid_moveset = valid_moveset
         self.turn_number = 0
+        self.piece_abbreviation = None
         print(__class__.__name__)
 
     # add direction as an argument once we have this converted as valid_movesets
@@ -18,15 +19,10 @@ class piece:
     def end_turn(self):
         self.turn_number += 1
     
-    # convert the moveset based on team/starting position
-    # example: "up" for the black team is [-1, 0] - but if you're the white team
-    # "up" would be [1, 0] - so we just multiply the "y-axis" move move by -1
-    def convert_moveset_based_on_team(self, moveset):
-        if self.team_name == 'white':
-            converted_moveset = []
-            for move in moveset:
-                move[0] = move[0] * -1
-                converted_moveset.append(move)
-            return converted_moveset
-        else:
-            return self.valid_moveset
+    # the display name that represents <team:piece_name> (e.g. 'bK' is black team's king)
+    def team_piece_representation(self):
+        if not self.piece_abbreviation: raise 'Must define self.piece_abbreviation in your piece implementation'
+
+        prefix = 'w' if self.team_name == 'white' else 'b'
+        full_piece_representation = f"{prefix}{self.piece_abbreviation}"
+        return full_piece_representation
