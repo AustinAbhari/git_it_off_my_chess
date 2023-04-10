@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-from src.models.piece import piece
-from src.models.pawn import pawn
-from src.models.king import king
-from src.models.knight import knight
-from src.models.bishop import bishop
-from src.models.queen import queen
+from src.models.peices.piece import piece
+from src.models.peices.pawn import pawn
+from src.models.peices.king import king
+from src.models.peices.knight import knight
+from src.models.peices.bishop import bishop
+from src.models.peices.queen import queen
 from src.models.board import board
 from string import Template
 

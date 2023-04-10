@@ -1,4 +1,4 @@
-from src.models.piece import piece
+from src.models.peices.piece import piece
 
 
 class knight(piece):
