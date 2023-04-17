@@ -4,8 +4,7 @@ from src.helpers.translate_moves import move_any_number_of_spaces_in_direction
 
 
 class queen(piece):
-    def __init__(self, starting_point, team_name='black'):
-        self.starting_point = starting_point
+    def __init__(self, team_name='white'):
 
         self.valid_moveset = [
             list(map(move_any_number_of_spaces_in_direction, MOVES.up)),
@@ -19,6 +18,6 @@ class queen(piece):
         ]
         print(self.valid_moveset)
         self.team_name = team_name
-        super(queen, self).__init__(starting_point=starting_point,
-                                    valid_moveset=self.valid_moveset, team_name=team_name)
-        self.piece_abbreviation = 'Q'
+        super(queen, self).__init__(
+            valid_moveset=self.valid_moveset, team_name=team_name)
+        self.piece_abbreviation = '♕' if team_name == 'white' else '♛'

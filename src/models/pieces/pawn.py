@@ -3,8 +3,7 @@ from src.helpers.constants import MOVES
 
 
 class pawn(piece):
-    def __init__(self, starting_point, team_name='black'):
-        self.starting_point = starting_point
+    def __init__(self, team_name='white'):
         # self.valid_moveset = [[-1, 0], [-2, 0]] #
         # special handling for 2, 0 as ONLY valid for the first move
         self.team_name = team_name
@@ -12,9 +11,9 @@ class pawn(piece):
             map(lambda x: x * 2, MOVES.up))]
         self.valid_moveset = self.convert_moveset_based_on_team(
             self.valid_moveset)
-        super(pawn, self).__init__(starting_point=starting_point,
-                                   valid_moveset=self.valid_moveset, team_name=team_name)
-        self.piece_abbreviation = 'P'
+        super(pawn, self).__init__(
+            valid_moveset=self.valid_moveset, team_name=team_name)
+        self.piece_abbreviation = '♙' if team_name == 'white' else '♟︎'
 
     def end_turn(self):
         self.valid_moveset.pop() if self.turn_number == 0 else False

@@ -1,76 +1,82 @@
+from src.models.square import square
+from src.models.pieces.bishop import bishop
+from src.models.pieces.pawn import pawn
+from src.models.pieces.knight import knight
+from src.models.pieces.rook import rook
+from src.models.pieces.queen import queen
+from src.models.pieces.king import king
+from src.helpers.constants import STARTING_COLUMNS, STARTING_ROWS
+
 rows, cols = (8, 8)
 
 
 class board:
     def __init__(self):
-        self.white_turn = True
-        self.grid = [[' ']*rows for _ in range(cols)]
-        self.move_order = []
+        self.grid = [[square() for i in range(cols)] for j in range(rows)]
 
     def get_grid(self):
         return self.grid
 
+    def move_piece(self, piece):
+        self.grid[0][1].piece = piece
+
     def setup_board(self):
-        # Nasty looking prolly put in another file never to be seen again
-        white_starting_row = 0
-        black_starting_row = 7
-        # Pawns
-        for i in range(0, cols):
-            self.grid[1][i] = "wP"
-            self.grid[6][i] = "bP"
-
-        # Knights
-        knight_starting_columns = [1, 6]
-        self.grid[white_starting_row][knight_starting_columns[0]] = "wKn"
-        self.grid[white_starting_row][knight_starting_columns[1]] = "wKn"
-
-        self.grid[black_starting_row][knight_starting_columns[0]] = "bKn"
-        self.grid[black_starting_row][knight_starting_columns[1]] = "bKn"
-
-        # Rooks
-        rook_starting_columns = [0, 7]
-        self.grid[white_starting_row][rook_starting_columns[0]] = "wR"
-        self.grid[white_starting_row][rook_starting_columns[1]] = "wR"
-
-        self.grid[black_starting_row][rook_starting_columns[0]] = "bR"
-        self.grid[black_starting_row][rook_starting_columns[1]] = "bR"
-
-        # Bishops
-        bishop_starting_columns = [2, 5]
-        self.grid[white_starting_row][bishop_starting_columns[0]] = "wB"
-        self.grid[white_starting_row][bishop_starting_columns[1]] = "wB"
-
-        self.grid[black_starting_row][bishop_starting_columns[0]] = "bB"
-        self.grid[black_starting_row][bishop_starting_columns[1]] = "bB"
-
-        # Queen
-        queen_starting_column = 4
-        self.grid[white_starting_row][queen_starting_column] = "wQ"
-        self.grid[black_starting_row][queen_starting_column] = "bQ"
-
-        # King
-        king_starting_column = 3
-        self.grid[white_starting_row][king_starting_column] = "wK"
-        self.grid[black_starting_row][king_starting_column] = "bB"
-
-        # once we get some hardware we need to update each square have an id and peice
-        # prolly should be its own class
-
-    def next_turn(self):
-        # change turn to white or black, prolly move this is a game class
-        # catalog in move order
-        # re-call valid moves on each peice in the array
-        self.white_turn = not self.white_turn
+        self.checker_board()
+        self.set_pawns()
+        self.set_knights()
+        self.set_rooks()
+        self.set_bishops()
+        self.set_yas_queens()
+        self.set_short_kings()
 
     def capture():
         # delete peice from grid
         # next_turn()
         return None
 
-    def piece_move():
-        # update grid
-        # next_turn
-        return None
+    def checker_board(self):
+        for i in range(rows):
+            for j in range(cols):
+                self.grid[i][j].color = 'white' if (
+                    i+j) % 2 == 1 else 'lightgrey'
 
-    def print_board(self):
-        print(self.grid)
+    def set_pawns(self):
+        for i in range(0, cols):
+            self.grid[STARTING_ROWS.white_pawns][i].piece = pawn(
+                team_name='white')
+
+            self.grid[STARTING_ROWS.black_pawns][i].piece = pawn(
+                team_name='black')
+
+    def set_knights(self):
+        for x in STARTING_COLUMNS.knight:
+            self.grid[STARTING_ROWS.white_pieces][x].piece = knight(
+                team_name='white')
+            self.grid[STARTING_ROWS.black_pieces][x].piece = knight(
+                team_name='black')
+
+    def set_rooks(self):
+        for x in STARTING_COLUMNS.rook:
+            self.grid[STARTING_ROWS.white_pieces][x].piece = rook(
+                team_name='white')
+            self.grid[STARTING_ROWS.black_pieces][x].piece = rook(
+                team_name='black')
+
+    def set_bishops(self):
+        for x in STARTING_COLUMNS.bishop:
+            self.grid[STARTING_ROWS.white_pieces][x].piece = bishop(
+                team_name='white')
+            self.grid[STARTING_ROWS.black_pieces][x].piece = bishop(
+                team_name='black')
+
+    def set_yas_queens(self):
+        self.grid[STARTING_ROWS.white_pieces][STARTING_COLUMNS.queen].piece = queen(
+            team_name='white')
+        self.grid[STARTING_ROWS.black_pieces][STARTING_COLUMNS.queen].piece = queen(
+            team_name='black')
+
+    def set_short_kings(self):
+        self.grid[STARTING_ROWS.white_pieces][STARTING_COLUMNS.king].piece = king(
+            team_name='white')
+        self.grid[STARTING_ROWS.black_pieces][STARTING_COLUMNS.king].piece = king(
+            team_name='black')
