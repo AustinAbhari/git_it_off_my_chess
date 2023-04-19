@@ -29,11 +29,6 @@ class board:
         self.set_yas_queens()
         self.set_short_kings()
 
-    def capture():
-        # delete peice from grid
-        # next_turn()
-        return None
-
     def checker_board(self):
         for i in range(rows):
             for j in range(cols):

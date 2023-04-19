@@ -12,5 +12,4 @@ class rook(piece):
             [[row * x for row in MOVES.down] for x in range(1, 7)],
             [[row * x for row in MOVES.left] for x in range(1, 7)],
             [[row * x for row in MOVES.right] for x in range(1, 7)],
-
         ]
