@@ -1,12 +1,13 @@
 from flask import Flask, render_template
-from src.models.pieces.piece import piece
 from src.models.pieces.pawn import pawn
 from src.models.pieces.king import king
 from src.models.pieces.knight import knight
 from src.models.pieces.bishop import bishop
 from src.models.pieces.queen import queen
+from src.models.pieces.rook import rook
 from src.models.board import board
 from src.models.game import game
+from src.util.valid_moves import valid_moves
 from string import Template
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ PIECE_NAME_MAP = {
     'queen': queen,
     'knight': knight,
     'bishop': bishop,
+    'rook': rook
 }
 
 
@@ -40,8 +42,10 @@ def gimme_dat_piece(piece_name):
     return new.substitute(name=name, moveset=moveset)
 
 
-@app.route("/bishop")
-def bish_better_have_my_moola():
-    b = board()
-    b.setup_board()
-    return "hello"
+@app.route("/moves/<string:piece_name>/<int:positionx><int:positiony>")
+def bish_better_have_my_moola(piece_name, positionx, positiony):
+    piece_class = PIECE_NAME_MAP[piece_name]
+    my_piece = piece_class()
+    moves = my_piece.get_valid_moveset()
+    print([positionx, positiony])
+    return str(valid_moves(my_piece.get_valid_moveset(), [positionx, positiony]))

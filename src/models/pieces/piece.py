@@ -19,6 +19,6 @@ class piece:
     def end_turn(self):
         self.turn_number += 1
 
-    def find_valid_moves(self, grid, grid_position):
-        for moves in self.valid_moveset:
-            print(moves)
+    def get_valid_moveset(self):
+        print(self.valid_moveset)
+        return self.valid_moveset
