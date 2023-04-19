@@ -9,16 +9,13 @@ def valid_moves(move_set, current_position):
         move_set (list(list(list(int, int)))): moves where the piece can go
         current_position  (list(int, int)): The imaginary part of complex number.
     """
+    boundary_floor = 0
+    bounday_ceil = 7
+    moves = []
 
     if type(move_set) != list and type(move_set) != current_position:
         raise Exception('Bruh, move_set and current_position must be list')
 
-    if (i > bounday_ceil for i in current_position) or any(i < boundary_floor for i in current_position):
-        raise Exception("Invalid current position, please be better")
-
-    boundary_floor = 0
-    bounday_ceil = 7
-    moves = []
     for set in move_set:
         for move in set:
             m = np.add(current_position, move)
