@@ -1,4 +1,13 @@
+from src.models.pieces.piece import piece
+from src.models.pieces.pawn import pawn
+from src.models.pieces.king import king
+from src.models.pieces.knight import knight
+from src.models.pieces.bishop import bishop
+from src.models.pieces.queen import queen
+
 rows, cols = (8, 8)
+
+
 
 
 class board:
@@ -16,42 +25,44 @@ class board:
         black_starting_row = 7
         # Pawns
         for i in range(0, cols):
-            self.grid[1][i] = "wP"
-            self.grid[6][i] = "bP"
+            self.grid[1][i] = pawn(starting_point=[1, i], team_name='white') # "wP"
+            self.grid[6][i] = pawn(
+                starting_point=[6, i],
+                team_name='black')  # "bP"
 
         # Knights
         knight_starting_columns = [1, 6]
-        self.grid[white_starting_row][knight_starting_columns[0]] = "wKn"
-        self.grid[white_starting_row][knight_starting_columns[1]] = "wKn"
+        self.grid[white_starting_row][knight_starting_columns[0]] = knight(starting_point='fuck you', team_name='white') # "wKn"
+        self.grid[white_starting_row][knight_starting_columns[1]] = knight(starting_point='fuck you', team_name='white') # "wKn"
 
-        self.grid[black_starting_row][knight_starting_columns[0]] = "bKn"
-        self.grid[black_starting_row][knight_starting_columns[1]] = "bKn"
+        self.grid[black_starting_row][knight_starting_columns[0]] = knight(starting_point='fuck you', team_name='black') # "bKn"
+        self.grid[black_starting_row][knight_starting_columns[1]] = knight(starting_point='fuck you', team_name='black') # "bKn"
 
         # Rooks
         rook_starting_columns = [0, 7]
-        self.grid[white_starting_row][rook_starting_columns[0]] = "wR"
-        self.grid[white_starting_row][rook_starting_columns[1]] = "wR"
+        self.grid[white_starting_row][rook_starting_columns[0]] = knight(starting_point='fuck you', team_name='white') # "wR"
+        self.grid[white_starting_row][rook_starting_columns[1]] = knight(starting_point='fuck you', team_name='white') # "wR"
 
-        self.grid[black_starting_row][rook_starting_columns[0]] = "bR"
-        self.grid[black_starting_row][rook_starting_columns[1]] = "bR"
+        self.grid[black_starting_row][rook_starting_columns[0]] = knight(starting_point='fuck you', team_name='white') # "bR"
+        self.grid[black_starting_row][rook_starting_columns[1]] = knight(starting_point='fuck you', team_name='white') # "bR"
 
         # Bishops
         bishop_starting_columns = [2, 5]
-        self.grid[white_starting_row][bishop_starting_columns[0]] = "wB"
-        self.grid[white_starting_row][bishop_starting_columns[1]] = "wB"
+        self.grid[white_starting_row][bishop_starting_columns[0]] = bishop(starting_point='fuck you', team_name='white') # "wB"
+        self.grid[white_starting_row][bishop_starting_columns[1]] = bishop(starting_point='fuck you', team_name='white') # "wB"
 
-        self.grid[black_starting_row][bishop_starting_columns[0]] = "bB"
-        self.grid[black_starting_row][bishop_starting_columns[1]] = "bB"
+        self.grid[black_starting_row][bishop_starting_columns[0]] = bishop(starting_point='fuck you', team_name='black') # "bB"
+        self.grid[black_starting_row][bishop_starting_columns[1]] = bishop(starting_point='fuck you', team_name='black') # "bB"
 
         # Queen
         queen_starting_column = 4
-        self.grid[white_starting_row][queen_starting_column] = "wQ"
-        self.grid[black_starting_row][queen_starting_column] = "bQ"
+        self.grid[white_starting_row][queen_starting_column] = queen(starting_point='fuck you', team_name='white') # "wQ"
+        self.grid[black_starting_row][queen_starting_column] = queen(starting_point='fuck you', team_name='black') #"bQ"
 
         # King
         king_starting_column = 3
-        self.grid[white_starting_row][king_starting_column] = "wK"
-        self.grid[black_starting_row][king_starting_column] = "bB"
+        self.grid[white_starting_row][king_starting_column] = king(starting_point='fuck you', team_name='white') # "wK"
+        self.grid[black_starting_row][king_starting_column] = king(starting_point='fuck you', team_name='black') # "bK"
 
         # once we get some hardware we need to update each square have an id and peice
         # prolly should be its own class

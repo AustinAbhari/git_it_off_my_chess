@@ -6,7 +6,8 @@
             {% for element in row %}
                 <td style="border: 2px black solid; 
                           padding: 30px 30px;">
-                    <h2 style="margin: 0">{{element}}</h2>
+                          {{element}}
+                    <h2 style="margin: 0">{{element.team_piece_representation()}}</h2>
                 <td>
             {% endfor %}
         </tr>
