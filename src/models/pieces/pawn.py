@@ -7,10 +7,10 @@ class pawn(piece):
         # self.valid_moveset = [[-1, 0], [-2, 0]] #
         # special handling for 2, 0 as ONLY valid for the first move
         self.team_name = team_name
-        self.valid_moveset = [MOVES.up.copy(), list(
-            map(lambda x: x * 2, MOVES.up))]
-        self.valid_moveset = self.convert_moveset_based_on_team(
-            self.valid_moveset)
+        self.valid_moveset = [[MOVES.down]
+                              ] if team_name == 'white' else [[MOVES.up]]
+        # self.valid_moveset = self.convert_moveset_based_on_team(
+        #     self.valid_moveset)
         super(pawn, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
         self.piece_abbreviation = '♙' if team_name == 'white' else '♟︎'
@@ -25,9 +25,11 @@ class pawn(piece):
     def convert_moveset_based_on_team(self, moveset):
         if self.team_name == 'white':
             converted_moveset = []
-            for move in moveset:
+            for move in moveset[0]:
+                print(move)
                 move[0] = move[0] * -1
                 converted_moveset.append(move)
+            print(converted_moveset)
             return converted_moveset
         else:
             return self.valid_moveset

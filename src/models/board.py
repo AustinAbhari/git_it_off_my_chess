@@ -17,8 +17,13 @@ class board:
     def get_grid(self):
         return self.grid
 
-    def move_piece(self, piece):
-        self.grid[0][1].piece = piece
+    def move_piece(self, piece, grid_position):
+        # need logic here
+        self.grid[grid_position[0]][grid_position[1]].piece = piece
+
+    def display_valid_moves(self, moves):
+        for move in moves:
+            self.grid[move[0]][move[1]].color = 'yellow'
 
     def setup_board(self):
         self.checker_board()

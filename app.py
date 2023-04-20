@@ -42,10 +42,25 @@ def gimme_dat_piece(piece_name):
     return new.substitute(name=name, moveset=moveset)
 
 
-@app.route("/moves/<string:piece_name>/<int:positionx><int:positiony>")
-def bish_better_have_my_moola(piece_name, positionx, positiony):
+# try out these super dope routes
+# /moves/king/white/44
+# /moves/rook/black/44
+# /moves/bishop/white/44
+# /moves/pawn/black/33
+# /moves/pawn/white/33
+# /moves/knight/44
+
+@app.route("/moves/<string:piece_name>/<string:team>/<int:positionx><int:positiony>")
+def bishop_better_have_my_moola(piece_name, team, positionx, positiony):
     piece_class = PIECE_NAME_MAP[piece_name]
-    my_piece = piece_class()
+    grid_position = [positionx, positiony]
+    my_piece = piece_class(team_name=team)
     moves = my_piece.get_valid_moveset()
-    print([positionx, positiony])
-    return str(valid_moves(my_piece.get_valid_moveset(), [positionx, positiony]))
+
+    b = board()
+    b.move_piece(my_piece, grid_position)
+
+    valid_moves_set = valid_moves(moves, grid_position)
+    b.display_valid_moves(valid_moves_set)
+
+    return render_template("grid.html", data=b.get_grid())

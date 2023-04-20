@@ -27,6 +27,19 @@ MOVES_DICTIONARY = {
     'down_left': [1, -1]
 }
 
+KNIGHT_MOVES_DICTIONARY = {
+    'up_up_right': [-2, 1],
+    'up_up_left': [-2, -1],
+    'down_down_right': [2, -1],
+    'down_down_left': [2, 1],
+    'right_right_up': [-1, 2],
+    'right_right_down': [1, 2],
+    'left_left_up': [-1, -2],
+    'left_left_down': [1, -2]
+}
+
+
 MOVES = SimpleNamespace(**MOVES_DICTIONARY)
+KNIGHT_MOVES = SimpleNamespace(**KNIGHT_MOVES_DICTIONARY)
 STARTING_ROWS = SimpleNamespace(**STARTING_ROWS_DICTIONARY)
 STARTING_COLUMNS = SimpleNamespace(**STARTING_COLUMNS_DICTIONARY)
