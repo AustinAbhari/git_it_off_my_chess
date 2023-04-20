@@ -9,8 +9,11 @@ from src.models.board import board
 from src.models.game import game
 from src.util.valid_moves import valid_moves
 from string import Template
+from flask_cors import CORS
+import json
 
 app = Flask(__name__)
+CORS(app)
 
 PIECE_NAME_MAP = {
     'pawn': pawn,
@@ -20,6 +23,14 @@ PIECE_NAME_MAP = {
     'bishop': bishop,
     'rook': rook
 }
+
+g = game()
+g.new_game()
+
+
+@app.route("/game")
+def gamer():
+    return json.dumps(g.board.get_grid()[1][1].piece.__dict__)
 
 
 @app.route("/")
