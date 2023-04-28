@@ -6,6 +6,7 @@ from src.models.pieces.rook import rook
 from src.models.pieces.queen import queen
 from src.models.pieces.king import king
 from src.helpers.constants import STARTING_COLUMNS, STARTING_ROWS
+from src.util.valid_moves import valid_moves
 
 rows, cols = (8, 8)
 
@@ -20,6 +21,12 @@ class board:
     def move_piece(self, piece, grid_position):
         # need logic here
         self.grid[grid_position[0]][grid_position[1]].piece = piece
+
+    def find_valid_moves(self, grid_position):
+        piece = self.grid[grid_position[0]][grid_position[1]].piece
+        if piece == None:
+            return []
+        return valid_moves(piece.valid_moveset, grid_position)
 
     def display_valid_moves(self, moves):
         for move in moves:
@@ -37,8 +44,8 @@ class board:
     def checker_board(self):
         for i in range(rows):
             for j in range(cols):
-                self.grid[i][j].color = 'white' if (
-                    i+j) % 2 == 1 else 'lightgrey'
+                self.grid[i][j].color = 'black' if (
+                    i+j) % 2 == 1 else 'lightgreen'
 
     def set_pawns(self):
         for i in range(0, cols):

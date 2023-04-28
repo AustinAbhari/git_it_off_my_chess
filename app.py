@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from src.models.pieces.pawn import pawn
 from src.models.pieces.king import king
 from src.models.pieces.knight import knight
@@ -12,14 +12,22 @@ from string import Template
 from flask_cors import CORS
 import json
 from json import JSONEncoder
+import numpy
 
 app = Flask(__name__)
 CORS(app)
 
 
-class cool_encoder(JSONEncoder):
+class CoolEncoder(JSONEncoder):
     def default(self, o):
         return o.__dict__
+
+
+class NumpyArrayEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, numpy.ndarray):
+            return obj.tolist()
+        return JSONEncoder.default(self, obj)
 
 
 PIECE_NAME_MAP = {
@@ -37,8 +45,15 @@ g.new_game()
 
 @app.route("/game")
 def gamer():
-    return cool_encoder().encode(g)
-    # return json.dumps(g.__dict__)
+    return CoolEncoder().encode(g)
+
+
+@app.route("/moves/<int:positionx>-<int:positiony>")
+def another_cool_name(positionx, positiony):
+    output = g.board.find_valid_moves(
+        [positionx, positiony])
+    print(output)
+    return json.dumps({'moves': output}, cls=NumpyArrayEncoder)
 
 
 @app.route("/")
