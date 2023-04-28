@@ -11,9 +11,16 @@ from src.util.valid_moves import valid_moves
 from string import Template
 from flask_cors import CORS
 import json
+from json import JSONEncoder
 
 app = Flask(__name__)
 CORS(app)
+
+
+class cool_encoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__
+
 
 PIECE_NAME_MAP = {
     'pawn': pawn,
@@ -30,7 +37,8 @@ g.new_game()
 
 @app.route("/game")
 def gamer():
-    return json.dumps(g.board.get_grid()[1][1].piece.__dict__)
+    return cool_encoder().encode(g)
+    # return json.dumps(g.__dict__)
 
 
 @app.route("/")
@@ -52,14 +60,6 @@ def gimme_dat_piece(piece_name):
     new = Template("<p>Hello, World! $name - my moves are $moveset</p>")
     return new.substitute(name=name, moveset=moveset)
 
-
-# try out these super dope routes
-# /moves/king/white/44
-# /moves/rook/black/44
-# /moves/bishop/white/44
-# /moves/pawn/black/33
-# /moves/pawn/white/33
-# /moves/knight/44
 
 @app.route("/moves/<string:piece_name>/<string:team>/<int:positionx><int:positiony>")
 def bishop_better_have_my_moola(piece_name, team, positionx, positiony):
