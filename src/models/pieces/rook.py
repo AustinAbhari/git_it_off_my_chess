@@ -8,8 +8,8 @@ class rook(piece):
         self.team_name = team_name
         self.piece_abbreviation = '♖' if team_name == 'white' else '♜'
         self.valid_moveset = [
-            [[row * x for row in MOVES.up] for x in range(1, 7)],
-            [[row * x for row in MOVES.down] for x in range(1, 7)],
-            [[row * x for row in MOVES.left] for x in range(1, 7)],
-            [[row * x for row in MOVES.right] for x in range(1, 7)],
+            [[row * x for row in MOVES.up] for x in range(1, 8)],
+            [[row * x for row in MOVES.down] for x in range(1, 8)],
+            [[row * x for row in MOVES.left] for x in range(1, 8)],
+            [[row * x for row in MOVES.right] for x in range(1, 8)],
         ]
