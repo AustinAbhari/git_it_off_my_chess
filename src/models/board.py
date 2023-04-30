@@ -7,6 +7,7 @@ from src.models.pieces.queen import queen
 from src.models.pieces.king import king
 from src.helpers.constants import STARTING_COLUMNS, STARTING_ROWS
 from src.util.valid_moves import valid_moves
+from src.helpers.double_array_indexer import double_array_indexer
 
 rows, cols = (8, 8)
 
@@ -14,16 +15,23 @@ rows, cols = (8, 8)
 class board:
     def __init__(self):
         self.grid = [[square() for i in range(cols)] for j in range(rows)]
+        self.alive_white_pieces = []
+        self.alive_black_pieces = []
 
     def get_grid(self):
         return self.grid
 
-    def move_piece(self, piece, grid_position):
-        # need logic here
-        self.grid[grid_position[0]][grid_position[1]].piece = piece
+    def move_piece(self, from_grid_position, to_grid_position):
+        to_square = double_array_indexer(self.grid, to_grid_position)
+        from_square = double_array_indexer(self.grid, from_grid_position)
+
+        # need more validation here for: collisions, captures, valid moves
+        if (to_square.piece == None and from_square.piece != None):
+            to_square.piece = from_square.piece
+            from_square.piece = None
 
     def find_valid_moves(self, grid_position):
-        piece = self.grid[grid_position[0]][grid_position[1]].piece
+        piece = double_array_indexer(self.grid, grid_position).piece
         if piece == None:
             return []
         return valid_moves(piece.valid_moveset, grid_position)

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request
 from src.models.pieces.pawn import pawn
 from src.models.pieces.king import king
 from src.models.pieces.knight import knight
@@ -13,6 +13,7 @@ from flask_cors import CORS
 import json
 from json import JSONEncoder
 import numpy
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -52,8 +53,16 @@ def gamer():
 def another_cool_name(positionx, positiony):
     output = g.board.find_valid_moves(
         [positionx, positiony])
-    print(output)
     return json.dumps({'moves': output}, cls=NumpyArrayEncoder)
+
+
+@app.route("/move", methods=['POST'])
+def move_get_out_the_way():
+    body = request.json
+    f = body.get('from')
+    t = body.get('to')
+    g.board.move_piece(f, t)
+    return CoolEncoder().encode(g)
 
 
 @app.route("/")

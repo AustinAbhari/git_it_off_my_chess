@@ -24,3 +24,9 @@ pip install -r requirements.txt
  ```shell
  pytest
  ```
+
+ ## Run Frontend Preact
+
+ ```shell
+cd client && npm run dev
+ ```
