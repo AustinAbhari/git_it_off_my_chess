@@ -10,4 +10,4 @@ class king(piece):
         self.team_name = team_name
         super(king, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
-        self.piece_abbreviation = '♔' if team_name == 'white' else '♚'
+        self.piece_abbreviation = '♚' if team_name == 'white' else '♔'

@@ -6,7 +6,7 @@ import numpy as np
 class knight(piece):
     def __init__(self, team_name='white'):
         self.team_name = team_name
-        self.piece_abbreviation = '♘' if team_name == 'white' else '♞'
+        self.piece_abbreviation = '♞' if team_name == 'white' else '♘'
         self.valid_moveset = [
             [KNIGHT_MOVES.up_up_right],
             [KNIGHT_MOVES.up_up_left],

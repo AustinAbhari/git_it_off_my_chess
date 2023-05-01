@@ -13,7 +13,7 @@ class pawn(piece):
         #     self.valid_moveset)
         super(pawn, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
-        self.piece_abbreviation = '♙' if team_name == 'white' else '♟︎'
+        self.piece_abbreviation = '♟︎' if team_name == 'white' else '♙'
 
     def end_turn(self):
         self.valid_moveset.pop() if self.turn_number == 0 else False
