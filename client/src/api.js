@@ -15,7 +15,7 @@ export const movePiece = async (from, to) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ from: from, to: to })
+            body: JSON.stringify({ from: from.split(''), to: to.split('') })
         })
 
     const data = await result.text()

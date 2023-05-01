@@ -32,6 +32,7 @@ const Game = () => {
             <input value={to} onChange={(e) => setTo(e.target.value)}> to: </input>
             <input value={from} onChange={(e) => setFrom(e.target.value)}> From: </input>
             <button onClick={() => youGotToMoveItMoveIt(to, from)}> MOVE IT </button>
+            <p> TURN: {data.white_turn ? "white" : "black"}</p>
         </>
     );
 };

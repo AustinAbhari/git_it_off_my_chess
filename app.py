@@ -6,7 +6,7 @@ from src.models.pieces.bishop import bishop
 from src.models.pieces.queen import queen
 from src.models.pieces.rook import rook
 from src.models.board import board
-from src.models.game import game
+from src.models.game import Game
 from src.util.valid_moves import valid_moves
 from string import Template
 from flask_cors import CORS
@@ -40,7 +40,7 @@ PIECE_NAME_MAP = {
     'rook': rook
 }
 
-g = game()
+g = Game()
 g.new_game()
 
 
@@ -59,15 +59,15 @@ def another_cool_name(positionx, positiony):
 @app.route("/move", methods=['POST'])
 def move_get_out_the_way():
     body = request.json
-    f = body.get('from')
-    t = body.get('to')
-    g.board.move_piece(f, t)
+    f = [eval(i) for i in body.get('from')]
+    t = [eval(i) for i in body.get('to')]
+    g.move_and_flip(f, t)
     return CoolEncoder().encode(g)
 
 
 @app.route("/")
 def i_got_game():
-    g = game()
+    g = Game()
     g.new_game()
     return render_template("grid.html", data=g.board.get_grid())
 
