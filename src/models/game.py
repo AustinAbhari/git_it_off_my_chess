@@ -1,4 +1,6 @@
 from src.models.board import board
+from src.helpers.double_array_indexer import double_array_indexer
+from src.util.valid_moves import valid_moves
 
 
 class Game():
@@ -22,24 +24,47 @@ class Game():
         # check if peice moving is on the correct time to the turn
         # need to clean this up, might not actually need to check alive pieces here
         # since the board handles if its there just need to update it
+        print("white turn:", self.white_turn)
         if self.white_turn:
             if from_grid_position in self.board.alive_white_pieces:
                 self.move_and_flip(from_grid_position,
                                    to_grid_position)
+                self.board.alive_white_pieces = self.update_pieces(
+                    from_grid_position, to_grid_position, self.board.alive_white_pieces)
+
             else:
                 print('its whites turn')
         elif not self.white_turn:
+            print("black turn")
             if from_grid_position in self.board.alive_black_pieces:
                 self.move_and_flip(from_grid_position,
                                    to_grid_position)
-            else:
+                self.board.alive_black_pieces = self.update_pieces(
+                    from_grid_position, to_grid_position, self.board.alive_black_pieces)
                 print('its blacks turn')
         else:
             print('invalid move')
 
+    def find_valid_moves(self, grid_position):
+        piece = double_array_indexer(self.board.grid, grid_position).piece
+        if piece == None:
+            return []
+        return valid_moves(piece.valid_moveset, grid_position, self.get_team_pieces(piece), self.get_opposition_pieces(piece))
+
     def move_and_flip(self, from_grid_position, to_grid_position):
         self.board.move_piece(from_grid_position, to_grid_position)
         self.white_turn = not self.white_turn
+
+    def update_pieces(self, from_grid_position, to_grid_position, alive_pieces):
+        alive_pieces.append(to_grid_position)
+        alive_pieces.remove(from_grid_position)
+        return alive_pieces
+
+    def get_team_pieces(self, piece):
+        return self.board.alive_white_pieces if piece.team_name == 'white' else self.board.alive_black_pieces
+
+    def get_opposition_pieces(self, piece):
+        return self.board.alive_white_pieces if not piece.team_name == 'white' else self.board.alive_black_pieces
 
     def print_board(self):
         print(self.grid)

@@ -31,10 +31,10 @@ class board:
         get_alive_white_pieces, set_alive_white_pieces)
 
     def get_alive_black_pieces(self):
-        return self.alive_black_pieces
+        return self._alive_black_pieces
 
     def set_alive_black_pieces(self, x):
-        self.alive_black_pieces = x
+        self._alive_black_pieces = x
 
     alive_black_pieces = property(
         get_alive_black_pieces, set_alive_black_pieces)
@@ -47,12 +47,6 @@ class board:
         if (to_square.piece == None and from_square.piece != None):
             to_square.piece = from_square.piece
             from_square.piece = None
-
-    def find_valid_moves(self, grid_position):
-        piece = double_array_indexer(self.grid, grid_position).piece
-        if piece == None:
-            return []
-        return valid_moves(piece.valid_moveset, grid_position)
 
     def display_valid_moves(self, moves):
         for move in moves:

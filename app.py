@@ -51,9 +51,9 @@ def gamer():
 
 @app.route("/moves/<int:positionx>-<int:positiony>")
 def another_cool_name(positionx, positiony):
-    output = g.board.find_valid_moves(
+    output = g.find_valid_moves(
         [positionx, positiony])
-    return json.dumps({'moves': output}, cls=NumpyArrayEncoder)
+    return json.dumps(output, cls=NumpyArrayEncoder)
 
 
 @app.route("/move", methods=['POST'])
@@ -61,7 +61,7 @@ def move_get_out_the_way():
     body = request.json
     f = [eval(i) for i in body.get('from')]
     t = [eval(i) for i in body.get('to')]
-    g.move_and_flip(f, t)
+    g.validate_and_move(f, t)
     return CoolEncoder().encode(g)
 
 

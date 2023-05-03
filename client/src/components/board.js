@@ -6,11 +6,13 @@ import { getValidMoves } from '../api';
 const Board = ({ board, youGotToMoveItMoveIt }) => {
     const [activeSquare, setActiveSquare] = useState(null)
     const [validSquares, setValidSqures] = useState([])
+    const [captureSqures, setCaptureSquares] = useState([])
 
     const handleActiveSquare = async (id) => {
         if (id == activeSquare) {
             setActiveSquare(null);
             setValidSqures([])
+            setCaptureSquares([])
         } else if (validSquares.includes(id)) {
             await youGotToMoveItMoveIt(activeSquare, id)
             setActiveSquare(id)
@@ -23,7 +25,9 @@ const Board = ({ board, youGotToMoveItMoveIt }) => {
         const validMoves = async () => {
             const result = await getValidMoves(activeSquare)
             const moves = result.moves.map(move => move.join(''))
+            const captures = result.captures.map(move => move.join(''))
 
+            setCaptureSquares(captures)
             setValidSqures(moves)
         }
 
@@ -43,6 +47,7 @@ const Board = ({ board, youGotToMoveItMoveIt }) => {
                             activeSquare={activeSquare}
                             handleActiveSquare={handleActiveSquare}
                             validSquares={validSquares}
+                            captureSqures={captureSqures}
                         />
                     ))}
                 </tr>
