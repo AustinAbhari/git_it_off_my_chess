@@ -3,9 +3,21 @@ import Square from './square';
 import { useState, useEffect } from 'preact/hooks';
 import { getValidMoves } from '../api';
 
-const Board = ({ board }) => {
+const Board = ({ board, youGotToMoveItMoveIt }) => {
     const [activeSquare, setActiveSquare] = useState(null)
     const [validSquares, setValidSqures] = useState([])
+
+    const handleActiveSquare = async (id) => {
+        if (id == activeSquare) {
+            setActiveSquare(null);
+            setValidSqures([])
+        } else if (validSquares.includes(id)) {
+            await youGotToMoveItMoveIt(activeSquare, id)
+            setActiveSquare(id)
+        } else {
+            setActiveSquare(id)
+        }
+    }
 
     useEffect(() => {
         const validMoves = async () => {
@@ -29,7 +41,7 @@ const Board = ({ board }) => {
                             color={square._color}
                             piece={square?._piece || null}
                             activeSquare={activeSquare}
-                            setActiveSquare={setActiveSquare}
+                            handleActiveSquare={handleActiveSquare}
                             validSquares={validSquares}
                         />
                     ))}

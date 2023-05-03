@@ -1,8 +1,8 @@
 import { h } from 'preact';
 
-const Square = ({ color, piece, activeSquare, id, setActiveSquare, validSquares }) => (
+const Square = ({ color, piece, activeSquare, id, handleActiveSquare, validSquares }) => (
     <div
-        onClick={() => setActiveSquare(id)}
+        onClick={() => handleActiveSquare(id)}
         style={`background: ${validSquares.includes(id) ? '#9902f7'
             : id == activeSquare ? 'hotpink' : color};  
             height: 80px;
