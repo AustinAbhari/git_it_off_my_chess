@@ -4,10 +4,18 @@ You bet your ass I'm going to
 
 ## How to get started
 
-Active the virtual environment
+
+First time?
+```shell
+python3 -m venv venv
+```
+
+Activate the virtual environment
 ```shell
  . ./venv/bin/activate # source your vitual environment
  flask run # run flask
+ # or for auto-reloading
+ flask run --debug
  ```
 
 ```shell
