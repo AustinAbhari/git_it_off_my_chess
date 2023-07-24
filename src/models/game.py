@@ -22,16 +22,20 @@ class Game():
     # next_turn
     def validate_and_move(self, from_grid_position, to_grid_position):
         # check if peice moving is on the correct time to the turn
-        # need to clean this up, might not actually need to check alive pieces here
-        # since the board handles if its there just need to update it
-        print("white turn:", self.white_turn)
+        # need to clean this up
         if self.white_turn:
             if from_grid_position in self.board.alive_white_pieces:
-                self.move_and_flip(from_grid_position,
-                                   to_grid_position)
-                self.board.alive_white_pieces = self.update_pieces(
-                    from_grid_position, to_grid_position, self.board.alive_white_pieces)
-
+                if double_array_indexer(self.board.grid, to_grid_position).piece != None:
+                    self.board.capture_piece(
+                        from_grid_position, to_grid_position)
+                    alive_pieces = self.update_captured_piece()
+                    self.board.alive_white_pieces = alive_pieces[0]
+                    self.board.alive_black_pieces = alive_pieces[1]
+                else:
+                    self.move_and_flip(from_grid_position,
+                                       to_grid_position)
+                    self.board.alive_white_pieces = self.update_pieces(
+                        from_grid_position, to_grid_position, self.board.alive_white_pieces)
             else:
                 print('its whites turn')
         elif not self.white_turn:
@@ -41,6 +45,7 @@ class Game():
                                    to_grid_position)
                 self.board.alive_black_pieces = self.update_pieces(
                     from_grid_position, to_grid_position, self.board.alive_black_pieces)
+            else:
                 print('its blacks turn')
         else:
             print('invalid move')
@@ -54,6 +59,12 @@ class Game():
     def move_and_flip(self, from_grid_position, to_grid_position):
         self.board.move_piece(from_grid_position, to_grid_position)
         self.white_turn = not self.white_turn
+
+    def update_captured_piece(self, from_grid_position, to_grid_position, from_alive_pieces, to_alive_pieces):
+        from_alive_pieces.append(to_grid_position)
+        from_alive_pieces.remove(from_grid_position)
+        to_alive_pieces.remove(to_grid_position)
+        return [from_alive_pieces, to_alive_pieces]
 
     def update_pieces(self, from_grid_position, to_grid_position, alive_pieces):
         alive_pieces.append(to_grid_position)

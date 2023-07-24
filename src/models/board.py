@@ -39,6 +39,12 @@ class board:
     alive_black_pieces = property(
         get_alive_black_pieces, set_alive_black_pieces)
 
+    def capture_piece(self, from_grid_position, to_grid_position):
+        piece = double_array_indexer(self.grid, from_grid_position).piece
+        if piece == None:
+            return
+        double_array_indexer(self.grid, to_grid_position).piece = piece
+
     def move_piece(self, from_grid_position, to_grid_position):
         to_square = double_array_indexer(self.grid, to_grid_position)
         from_square = double_array_indexer(self.grid, from_grid_position)
