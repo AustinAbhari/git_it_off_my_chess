@@ -6,12 +6,28 @@ from src.helpers.constants import MOVES
 
 @pytest.mark.black_team
 def test_has_correct_valid_moveset():
-    assert queen().valid_moveset == [[float('-inf'), 0], [float('inf'), 0], [0, float('-inf')], [0, float(
-        'inf')], [float('-inf'), float('inf')], [float('-inf'), float('-inf')], [float('inf'), float('inf')], [float('inf'), float('-inf')]]
+    assert queen().valid_moveset == [
+        [[-1, 0], [-2, 0], [-3, 0], [-4, 0], [-5, 0], [-6, 0], [-7, 0]],
+        [[-1, 1], [-2, 2], [-3, 3], [-4, 4], [-5, 5], [-6, 6], [-7, 7]],
+        [[-1, -1], [-2, -2], [-3, -3], [-4, -4], [-5, -5], [-6, -6], [-7, -7]],
+        [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]],
+        [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]],
+        [[1, -1], [2, -2], [3, -3], [4, -4], [5, -5], [6, -6], [7, -7]],
+        [[0, -1], [0, -2], [0, -3], [0, -4], [0, -5], [0, -6], [0, -7]],
+        [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7]],
+    ]
 
 
 @pytest.mark.white_team
 def test_has_correct_valid_moveset_white():
-    my_queen = queen(team_name='white', )
-    assert my_queen.valid_moveset == [[float('-inf'), 0], [float('inf'), 0], [0, float('-inf')], [0, float('inf')], [float(
-        '-inf'), float('inf')], [float('-inf'), float('-inf')], [float('inf'), float('inf')], [float('inf'), float('-inf')]]
+    my_queen = queen(team_name="white")
+    assert my_queen.valid_moveset == [
+        [[-1, 0], [-2, 0], [-3, 0], [-4, 0], [-5, 0], [-6, 0], [-7, 0]],
+        [[-1, 1], [-2, 2], [-3, 3], [-4, 4], [-5, 5], [-6, 6], [-7, 7]],
+        [[-1, -1], [-2, -2], [-3, -3], [-4, -4], [-5, -5], [-6, -6], [-7, -7]],
+        [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]],
+        [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]],
+        [[1, -1], [2, -2], [3, -3], [4, -4], [5, -5], [6, -6], [7, -7]],
+        [[0, -1], [0, -2], [0, -3], [0, -4], [0, -5], [0, -6], [0, -7]],
+        [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7]],
+    ]

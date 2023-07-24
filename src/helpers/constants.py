@@ -16,6 +16,11 @@ STARTING_COLUMNS_DICTIONARY = {
     'queen': 4
 }
 
+PAWN_MOVES_DICTIONARY = {
+    'up_up': [-2, 0],
+    'down_down': [2, 0],
+}
+
 MOVES_DICTIONARY = {
     'up': [-1, 0],
     'down': [1, 0],
@@ -43,3 +48,4 @@ MOVES = SimpleNamespace(**MOVES_DICTIONARY)
 KNIGHT_MOVES = SimpleNamespace(**KNIGHT_MOVES_DICTIONARY)
 STARTING_ROWS = SimpleNamespace(**STARTING_ROWS_DICTIONARY)
 STARTING_COLUMNS = SimpleNamespace(**STARTING_COLUMNS_DICTIONARY)
+PAWN_MOVES = SimpleNamespace(**PAWN_MOVES_DICTIONARY)

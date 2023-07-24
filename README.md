@@ -35,6 +35,7 @@ pip install -r requirements.txt
 
  ## Run Frontend Preact
 
+Make sure to run `npm install` first
  ```shell
 cd client && npm run dev
  ```

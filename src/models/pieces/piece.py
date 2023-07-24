@@ -17,7 +17,7 @@ class piece:
         return map(lambda y: y * x, self.valid_moveset[0])
 
     def end_turn(self):
-        self.turn_number += 1
+        return None
 
     def get_valid_moveset(self):
         print(self.valid_moveset)

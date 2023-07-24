@@ -1,5 +1,6 @@
 from .piece import piece
 from src.helpers.constants import MOVES
+from src.helpers.constants import PAWN_MOVES
 
 
 class pawn(piece):
@@ -7,16 +8,18 @@ class pawn(piece):
         # self.valid_moveset = [[-1, 0], [-2, 0]] #
         # special handling for 2, 0 as ONLY valid for the first move
         self.team_name = team_name
-        self.valid_moveset = [[MOVES.down]
-                              ] if team_name == 'white' else [[MOVES.up]]
-        # self.valid_moveset = self.convert_moveset_based_on_team(
-        #     self.valid_moveset)
+        self.valid_moveset = [[MOVES.down, PAWN_MOVES.down_down]
+                              ] if team_name == 'white' else [[MOVES.up, PAWN_MOVES.up_up]]
+        self.has_moved = False
         super(pawn, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
         self.piece_abbreviation = '♟︎' if team_name == 'white' else '♙'
 
     def end_turn(self):
-        self.valid_moveset.pop() if self.turn_number == 0 else False
+        if self.has_moved == False:
+            self.valid_moveset[0].pop() 
+            self.has_moved = True
+        
         return super().end_turn()
 
     # convert the moveset based on team/starting position
