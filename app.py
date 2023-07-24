@@ -95,7 +95,7 @@ def bishop_better_have_my_moola(piece_name, team, positionx, positiony):
     b = board()
     b.move_piece(my_piece, grid_position)
 
-    valid_moves_set = valid_moves(moves, grid_position)
+    valid_moves_set = valid_moves(moves, grid_position, my_piece)
     b.display_valid_moves(valid_moves_set)
 
     return render_template("grid.html", data=b.get_grid())

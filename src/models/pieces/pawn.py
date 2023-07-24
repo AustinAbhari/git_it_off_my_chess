@@ -1,7 +1,7 @@
 from .piece import piece
 from src.helpers.constants import MOVES
 from src.helpers.constants import PAWN_MOVES
-
+import numpy as np
 
 class pawn(piece):
     def __init__(self, team_name='white'):
@@ -11,8 +11,7 @@ class pawn(piece):
         self.valid_moveset = [[MOVES.down, PAWN_MOVES.down_down]
                               ] if team_name == 'white' else [[MOVES.up, PAWN_MOVES.up_up]]
         self.has_moved = False
-        super(pawn, self).__init__(
-            valid_moveset=self.valid_moveset, team_name=team_name)
+        super(pawn, self).__init__(team_name=team_name)
         self.piece_abbreviation = '♟︎' if team_name == 'white' else '♙'
 
     def end_turn(self):
@@ -21,6 +20,9 @@ class pawn(piece):
             self.has_moved = True
         
         return super().end_turn()
+
+    def can_capture(self, enemy_position, possible_capture_position):
+        return not np.array_equal(enemy_position, possible_capture_position)
 
     # convert the moveset based on team/starting position
     # example: "up" for the black team is [-1, 0] - but if you're the white team
