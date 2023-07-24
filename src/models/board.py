@@ -51,6 +51,7 @@ class board:
 
         # need more validation here for: collisions, captures, valid moves
         if (to_square.piece == None and from_square.piece != None):
+            from_square.piece.end_turn()
             to_square.piece = from_square.piece
             from_square.piece = None
 
