@@ -15,6 +15,7 @@ const Square = ({ color, piece, activeSquare, id, handleActiveSquare, validSquar
             justify-content: center;
             align-items: center;
             border: 1px solid black;
+            cursor: grab;
             font-size: 4em;`}>
             {piece?.piece_abbreviation || null}
         </div>

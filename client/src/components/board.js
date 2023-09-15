@@ -8,6 +8,7 @@ const Board = ({ board, youGotToMoveItMoveIt }) => {
     const [validSquares, setValidSqures] = useState([])
     const [captureSqures, setCaptureSquares] = useState([])
 
+
     const handleActiveSquare = async (id) => {
         if (id == activeSquare) {
             setActiveSquare(null);
@@ -15,7 +16,9 @@ const Board = ({ board, youGotToMoveItMoveIt }) => {
             setCaptureSquares([])
         } else if (captureSqures.includes(id) || validSquares.includes(id)) {
             await youGotToMoveItMoveIt(activeSquare, id)
-            setActiveSquare(id)
+            setActiveSquare(null);
+            setValidSqures([])
+            setCaptureSquares([])
         } else {
             setActiveSquare(id)
         }

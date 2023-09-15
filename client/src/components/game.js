@@ -28,7 +28,9 @@ const Game = () => {
 
     return (
         <>
-            <Board board={data.board} youGotToMoveItMoveIt={youGotToMoveItMoveIt} />
+            <Board
+                board={data.board}
+                youGotToMoveItMoveIt={youGotToMoveItMoveIt} />
             <p> TURN: {data.white_turn ? "white" : "black"}</p>
         </>
     );
