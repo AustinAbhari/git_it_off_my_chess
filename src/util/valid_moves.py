@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def valid_moves(move_set, current_position, team_positions=[], opposition_positions=[]):
+def valid_moves(move_set, current_position, team_positions=[], opposition_positions=[], capture_direction=[]):
     """
     Get the valid moves on the board
 
@@ -19,12 +19,21 @@ def valid_moves(move_set, current_position, team_positions=[], opposition_positi
     if type(move_set) != list and type(move_set) != current_position:
         raise Exception('Bruh, move_set and current_position must be list')
 
+    for capture in capture_direction:
+        potential_capture = np.add(current_position, capture)
+        if any(np.array_equal(x, potential_capture) for x in opposition_positions):
+            moves['captures'].append(potential_capture)
+
     for set in move_set:
         for move in set:
             m = np.add(current_position, move)
 
-            # captures
-            if any(np.array_equal(x, m) for x in opposition_positions):
+            # Don't go through opposition team if capture direction
+            if (any(np.array_equal(x, m) for x in opposition_positions) and capture_direction):
+                break
+
+            # Captures
+            if (any(np.array_equal(x, m) for x in opposition_positions) and (not capture_direction)):
                 moves['captures'].append(m)
                 break
 

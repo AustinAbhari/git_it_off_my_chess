@@ -13,3 +13,4 @@ class bishop(piece):
             [[row * x for row in MOVES.down_right] for x in range(1, 8)],
             [[row * x for row in MOVES.down_left] for x in range(1, 8)],
         ]
+        self.capture_direction = []

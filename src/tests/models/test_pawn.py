@@ -26,3 +26,8 @@ def test_has_correct_valid_moveset_at_turn_2_white():
     my_pawn.moved()
     assert my_pawn.has_moved == True
     assert my_pawn.valid_moveset == [[[1, 0]]]
+
+
+def test_has_correct_capture_direction():
+    my_pawn = pawn()
+    assert my_pawn.capture_direction == [[1, -1], [1, 1]]

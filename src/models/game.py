@@ -39,7 +39,7 @@ class Game():
         piece = self.board.grid[grid_position[0]][grid_position[1]].piece
         if piece == None:
             return []
-        return valid_moves(piece.valid_moveset, grid_position, self.get_team_pieces(piece), self.get_opposition_pieces(piece))
+        return valid_moves(piece.valid_moveset, grid_position, self.get_team_pieces(piece), self.get_opposition_pieces(piece), piece.capture_direction)
 
     def update_pieces(self, from_grid_position, to_grid_position, alive_pieces):
         alive_pieces.append(to_grid_position)

@@ -17,3 +17,4 @@ class knight(piece):
             [KNIGHT_MOVES.left_left_up],
             [KNIGHT_MOVES.left_left_down]
         ]
+        self.capture_direction = []

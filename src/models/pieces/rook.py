@@ -13,3 +13,4 @@ class rook(piece):
             [[row * x for row in MOVES.left] for x in range(1, 8)],
             [[row * x for row in MOVES.right] for x in range(1, 8)],
         ]
+        self.capture_direction = []

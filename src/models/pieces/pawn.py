@@ -13,6 +13,8 @@ class pawn(piece):
         super(pawn, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
         self.piece_abbreviation = '♟︎' if team_name == 'white' else '♙'
+        self.capture_direction = [MOVES.down_left, MOVES.down_right] if team_name == 'white' else [
+            MOVES.up_right, MOVES.up_left]
 
     def moved(self):
         if self.has_moved == False:

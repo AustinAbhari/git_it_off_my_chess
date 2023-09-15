@@ -55,3 +55,14 @@ def test_handle_collisions():
     valid_move_set = moves['moves']
 
     assert len(valid_move_set) == 3
+
+
+def test_capture_direction():
+    move_set = []
+    current_position = [0, 0]
+    enemy_piece = [[1, 1]]
+    capture_direction = [[1, -1], [1, 1]]
+    moves = valid_moves(move_set, current_position, [],
+                        enemy_piece, capture_direction)
+    valid_captures = moves['captures']
+    assert (valid_captures[0] == [1,1]).all()

@@ -11,6 +11,7 @@ class piece:
         self.turn_number = 0
         self.piece_abbreviation = None
         self.has_moved = False
+        self.capture_direction = []
 
     # add direction as an argument once we have this converted as valid_movesets
     def move_x_spaces_in_direction(self, x):
