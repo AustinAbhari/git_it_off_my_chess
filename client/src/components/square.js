@@ -1,14 +1,15 @@
 import { h } from 'preact';
 
 const Square = ({ color, piece, activeSquare, id, handleActiveSquare, validSquares, captureSqures }) => {
-    const squareColor = captureSqures.includes(id) ? '#7d0414'
-        : validSquares.includes(id) ? '#375934'
-            : id == activeSquare ? 'hotpink' : color
+    const squareColor = captureSqures.includes(id) ? 'Violet'
+        : validSquares.includes(id) ? 'teal'
+            : id == activeSquare ? 'gold' : color
 
     return (
         <div
             onClick={() => handleActiveSquare(id)}
             style={`background: ${squareColor};  
+            color: red;
             height: 80px;
             width: 80px; 
             display: flex;
