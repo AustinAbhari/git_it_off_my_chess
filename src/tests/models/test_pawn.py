@@ -11,7 +11,7 @@ def test_has_correct_valid_moveset():
 
 def test_has_correct_valid_moveset_at_turn_2():
     my_pawn = pawn(team_name="black")
-    my_pawn.end_turn()
+    my_pawn.moved()
     assert my_pawn.valid_moveset == [[[-1, 0]]]
 
 
@@ -23,6 +23,6 @@ def test_has_correct_valid_moveset_white():
 
 def test_has_correct_valid_moveset_at_turn_2_white():
     my_pawn = pawn()
-    my_pawn.end_turn()
+    my_pawn.moved()
     assert my_pawn.has_moved == True
     assert my_pawn.valid_moveset == [[[1, 0]]]

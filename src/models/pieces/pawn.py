@@ -10,17 +10,14 @@ class pawn(piece):
         self.team_name = team_name
         self.valid_moveset = [[MOVES.down, PAWN_MOVES.down_down]
                               ] if team_name == 'white' else [[MOVES.up, PAWN_MOVES.up_up]]
-        self.has_moved = False
         super(pawn, self).__init__(
             valid_moveset=self.valid_moveset, team_name=team_name)
         self.piece_abbreviation = '♟︎' if team_name == 'white' else '♙'
 
-    def end_turn(self):
+    def moved(self):
         if self.has_moved == False:
-            self.valid_moveset[0].pop() 
+            self.valid_moveset[0].pop()
             self.has_moved = True
-        
-        return super().end_turn()
 
     # convert the moveset based on team/starting position
     # example: "up" for the black team is [-1, 0] - but if you're the white team

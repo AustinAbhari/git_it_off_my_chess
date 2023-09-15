@@ -70,32 +70,3 @@ def i_got_game():
     g = Game()
     g.new_game()
     return render_template("grid.html", data=g.board.get_grid())
-
-
-@app.route("/pieces/<string:piece_name>")
-def gimme_dat_piece(piece_name):
-    piece_class = PIECE_NAME_MAP[piece_name]
-    my_piece = piece_class()
-
-    # shitty debugging for moving in a direction for a piece - parameterize this later
-    print(list(my_piece.move_x_spaces_in_direction(x=2)))
-    name = my_piece.current_position
-    moveset = my_piece.valid_moveset
-    new = Template("<p>Hello, World! $name - my moves are $moveset</p>")
-    return new.substitute(name=name, moveset=moveset)
-
-
-@app.route("/moves/<string:piece_name>/<string:team>/<int:positionx><int:positiony>")
-def bishop_better_have_my_moola(piece_name, team, positionx, positiony):
-    piece_class = PIECE_NAME_MAP[piece_name]
-    grid_position = [positionx, positiony]
-    my_piece = piece_class(team_name=team)
-    moves = my_piece.get_valid_moveset()
-
-    b = board()
-    b.move_piece(my_piece, grid_position)
-
-    valid_moves_set = valid_moves(moves, grid_position)
-    b.display_valid_moves(valid_moves_set)
-
-    return render_template("grid.html", data=b.get_grid())

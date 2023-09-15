@@ -7,7 +7,6 @@ from src.models.pieces.queen import queen
 from src.models.pieces.king import king
 from src.helpers.constants import STARTING_COLUMNS, STARTING_ROWS
 from src.util.valid_moves import valid_moves
-from src.helpers.double_array_indexer import double_array_indexer
 
 rows, cols = (8, 8)
 
@@ -39,21 +38,39 @@ class board:
     alive_black_pieces = property(
         get_alive_black_pieces, set_alive_black_pieces)
 
-    def capture_piece(self, from_grid_position, to_grid_position):
-        piece = double_array_indexer(self.grid, from_grid_position).piece
+    def is_piece_in_grid(self, position):
+        return self.grid[position[0]][position[1]].piece is not None
+
+    def capture_piece(self, from_grid_position, to_grid_position, from_alive_pieces, to_alive_pieces, white_turn):
+        piece = self.grid[from_grid_position[0]][from_grid_position[1]].piece
         if piece == None:
             return
-        double_array_indexer(self.grid, to_grid_position).piece = piece
+        self.grid[from_grid_position[0]][from_grid_position[1]].piece = None
+        self.grid[to_grid_position[0]][to_grid_position[1]].piece = piece
 
-    def move_piece(self, from_grid_position, to_grid_position):
-        to_square = double_array_indexer(self.grid, to_grid_position)
-        from_square = double_array_indexer(self.grid, from_grid_position)
+        # update alive piece matrix
+        from_alive_pieces.append(to_grid_position)
+        from_alive_pieces.remove(from_grid_position)
+        to_alive_pieces.remove(to_grid_position)
 
-        # need more validation here for: collisions, captures, valid moves
-        if (to_square.piece == None and from_square.piece != None):
-            from_square.piece.end_turn()
-            to_square.piece = from_square.piece
-            from_square.piece = None
+        self.set_alive_black_pieces(
+            to_alive_pieces if white_turn else from_alive_pieces)
+        self.set_alive_white_pieces(
+            to_alive_pieces if not white_turn else from_alive_pieces)
+
+    def move_piece(self, from_grid_position, to_grid_position, friendly_pieces, white_turn):
+        to_square = self.grid[to_grid_position[0]][to_grid_position[1]]
+        from_square = self.grid[from_grid_position[0]][from_grid_position[1]]
+
+        to_square.piece = from_square.piece
+        to_square.piece.moved()
+        from_square.piece = None
+
+        friendly_pieces.remove(from_grid_position)
+        friendly_pieces.append(to_grid_position)
+
+        self.set_alive_white_pieces(
+            friendly_pieces) if white_turn else self.set_alive_black_pieces(friendly_pieces)
 
     def display_valid_moves(self, moves):
         for move in moves:
@@ -72,7 +89,7 @@ class board:
         for i in range(rows):
             for j in range(cols):
                 self.grid[i][j].color = 'black' if (
-                    i+j) % 2 == 1 else 'lightgreen'
+                    i+j) % 2 == 1 else 'MistyRose'
 
     def set_pawns(self):
         for i in range(0, cols):

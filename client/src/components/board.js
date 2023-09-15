@@ -13,7 +13,7 @@ const Board = ({ board, youGotToMoveItMoveIt }) => {
             setActiveSquare(null);
             setValidSqures([])
             setCaptureSquares([])
-        } else if (validSquares.includes(id)) {
+        } else if (captureSqures.includes(id) || validSquares.includes(id)) {
             await youGotToMoveItMoveIt(activeSquare, id)
             setActiveSquare(id)
         } else {

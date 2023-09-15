@@ -10,14 +10,15 @@ class piece:
         self.valid_moveset = valid_moveset
         self.turn_number = 0
         self.piece_abbreviation = None
+        self.has_moved = False
 
     # add direction as an argument once we have this converted as valid_movesets
     def move_x_spaces_in_direction(self, x):
         print("this is x %d: " % x)
         return map(lambda y: y * x, self.valid_moveset[0])
 
-    def end_turn(self):
-        return None
+    def moved(self):
+        self.has_moved = True
 
     def get_valid_moveset(self):
         print(self.valid_moveset)
